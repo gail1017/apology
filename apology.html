@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lover</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            text-align: left;
+            background-color: #ffe6e6; /* Blush Pink */
+            margin: 50px;
+            padding: 20px;
+            overflow: auto;
+        }
+        h1 {
+            font-style: italic;
+            color: #ff66b2; /* Darker pink */
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            font-style: italic;
+        }
+        .error {
+            color: #ff0000; /* Red */
+            font-weight: bold;
+            display: none;
+        }
+        .sad-symbol {
+            font-size: 24px;
+            margin-left: 5px;
+        }
+        .heart-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .heart {
+            position: absolute;
+            background-color: #ff66b2; /* Darker pink */
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: floatHeart linear infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Lover</h1>
+    
+    <label for="response">Are you mad at me?</label>
+    <select id="response" onchange="handleResponse()">
+        <option value="">Select...</option>
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+    </select>
+
+    <div class="error" id="error">
+        <p>Error <span class="sad-symbol">😢</span></p>
+    </div>
+
+    <script>
+        function handleResponse() {
+            var response = document.getElementById('response').value;
+
+            if (response === 'no') {
+                document.getElementById('error').style.display = 'none';
+                displayApology();
+            } else if (response === 'yes') {
+                displayError();
+            }
+        }
+
+        function displayApology() {
+            document.body.innerHTML = ''; // Clear the content
+
+            var apologyMessage = document.createElement('div');
+            apologyMessage.innerHTML = 
+                "<h1>My Sweetest Ann</h1>" +
+                "<p><i>Dear Ann,</i><br><br>" +
+                "<i>I trust this message finds you well. I've been reflecting on our time together last night, and it has become apparent to me that my behavior was far from ideal. I want to sincerely apologize for allowing my immaturity and selfishness to overshadow what should have been an enjoyable evening for both of us. I understand that my reaction to the deleted video may have caught you off guard. It's no secret that your videos and pictures hold a special place in my heart, serving as a source of comfort and joy. However, I am fully aware that my emotional response was not an excuse for the way I acted. I take full responsibility for my actions, and I am genuinely sorry for allowing my emotions to get the best of me.</i><br><br>" +
+                "<i>I genuinely hope you can find it within yourself to forgive me. I understand that you may need some time, and I respect that. Please know that I really value our relationship. Don’t push me away, okay baby? I messed up, and I'm owning it.</i><br><br>" +
+                "<i>Once you've had a chance to read this, I would greatly appreciate hearing your thoughts. I want you to know that I am fully aware of my shortcomings, and I am committed to being accountable for my behavior. I am open to any conversation or action needed to fix this.</i><br><br>" +
+                "<i>Reflecting on the past few days, I've noticed a change in my mood, and I want to apologize for any undue stress I may have caused you. I'm sorry for projecting my grumpiness onto you. Above all, I want to reaffirm my deep love for you, Ann. My actions were never a reflection of the love and appreciation I have for you. I am sincerely sorry, and I am eager to work together to find a resolution. If there's anything specific I can do to make amends, please let me know.</i><br><br>" +
+                "<i>Thank you for your understanding, and I appreciate your patience as we navigate through this. I am committed to learning from this and becoming a better partner. Good luck on your upcoming exam, baby. I love you so much.</i><br><br>" +
+                "<i>Your Beloved,<br>Gail</i></p>";
+
+            document.body.appendChild(apologyMessage);
+            createFloatingHearts();
+        }
+
+        function displayError() {
+            document.getElementById('error').style.display = 'block';
+        }
+
+        function createFloatingHearts() {
+            const heartContainer = document.createElement('div');
+            heartContainer.className = 'heart-container';
+            document.body.appendChild(heartContainer);
+
+            for (let i = 0; i < 30; i++) {
+                createHeart(heartContainer);
+            }
+        }
+
+        function createHeart(container) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = Math.random() * 2 + 1 + 's';
+            container.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
